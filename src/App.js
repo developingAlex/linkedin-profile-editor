@@ -11,15 +11,48 @@ class App extends Component {
       profileImageURL: 'https://randomuser.me/api/portraits/lego/2.jpg'
     }
   }
+  
+// ****** WHEN THE FIRST NAME FIELD IS EDITED
+    onChangeFirstName = (event) => {
+      const input = event.target
+      const newFirstName = input.value
+      this.setState((prevState) => {
+        const user = prevState.user
+        const newUser = {
+          ...user,
+          firstName: newFirstName
+        }
+        // user.firstName = newFirstName //mutated way
+        return {
+          user: newUser //telling the state: update your user with this user.
+        }
+      })
+    }
 
-  onChangeFirstName = (event) => {
+// ****** WHEN CLICKING THE 'UPDATE IMAGE' BUTTON
+    onChangeImageURL = (event) => {
+      const newUrl = this.profileImageUrlField.value
+      this.setState((prevState) => {
+        const user = prevState.user
+        const newUser = {
+          ...user,
+          profileImageURL: newUrl
+        }
+        return {
+          user: newUser
+        }
+      })
+    }
+
+// ****** WHEN THE LAST NAME FIELD IS EDITED
+  onChangeLastName = (event) => {
     const input = event.target
-    const newFirstName = input.value
+    const newlastName = input.value
     this.setState((prevState) => {
       const user = prevState.user
       const newUser = {
         ...user,
-        firstName: newFirstName
+        lastName: newlastName
       }
       // user.firstName = newFirstName //mutated way
       return {
@@ -38,16 +71,44 @@ class App extends Component {
         <p>Name: {user.firstName} {user.lastName}</p>
         <img src={user.profileImageURL} />
         <p>
-          <label>
-            First Name:
-            { ' ' }
-            <input
-              value={user.firstName}
-              onChange ={
-                    this.onChangeFirstName              
-              }
-            />
-          </label>
+        <label>
+          First Name:
+          { ' ' }
+          <input
+            value={user.firstName}
+            onChange ={
+                  this.onChangeFirstName              
+            }
+          />
+        </label>
+        </p>
+        <p>
+        <label>
+          Last Name:
+          { ' ' }
+          <input
+            value={user.lastName}
+            onChange ={
+                  this.onChangeLastName              
+            }
+          />
+        </label>
+        </p>
+        <p>
+        <label>
+          ImageURL:
+          { ' ' }
+          <input
+            ref={(input) => {this.profileImageUrlField = input; }}
+            defaultValue={user.profileImageURL}
+          />
+          <button text='yeah' onClick={
+            this.onChangeImageURL
+          } 
+          >
+          Update Image
+          </button>
+        </label>
         </p>
       </div>
     );
