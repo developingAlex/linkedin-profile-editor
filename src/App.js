@@ -12,6 +12,21 @@ class App extends Component {
     }
   }
 
+  onChangeFirstName = (event) => {
+    const input = event.target
+    const newFirstName = input.value
+    this.setState((prevState) => {
+      const user = prevState.user
+      const newUser = {
+        ...user,
+        firstName: newFirstName
+      }
+      // user.firstName = newFirstName //mutated way
+      return {
+        user: newUser //telling the state: update your user with this user.
+      }
+    })
+  }
   render() {
 
     const user = this.state.user
@@ -19,10 +34,21 @@ class App extends Component {
     return (
       <div className="App">
         
-          <h1 className="App-title">LinkedIn profile editor</h1>
-          <p>Name: {user.firstName} {user.lastName}</p>
-          <img src={user.profileImageURL} />
-       
+        <h1 className="App-title">LinkedIn profile editor</h1>
+        <p>Name: {user.firstName} {user.lastName}</p>
+        <img src={user.profileImageURL} />
+        <p>
+          <label>
+            First Name:
+            { ' ' }
+            <input
+              value={user.firstName}
+              onChange ={
+                    this.onChangeFirstName              
+              }
+            />
+          </label>
+        </p>
       </div>
     );
   }
