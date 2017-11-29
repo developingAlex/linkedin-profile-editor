@@ -87,7 +87,8 @@ class App extends Component {
   }
   render() {
 
-    const user = this.state.user
+    // const user = this.state.user
+    const {user} = this.state //equivalent to the above but 'sugar' syntax
 
     return (
       <div className="App">
