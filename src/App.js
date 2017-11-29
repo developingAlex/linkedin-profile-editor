@@ -14,14 +14,14 @@ class App extends Component {
 
   render() {
 
-    
+    const user = this.state.user
 
     return (
       <div className="App">
         
-          <h1 className="App-title">TinderIn profile editor</h1>
-          <p>Name: Lego Sir</p>
-          <img src='https://randomuser.me/api/portraits/lego/2.jpg' />
+          <h1 className="App-title">LinkedIn profile editor</h1>
+          <p>Name: {user.firstName} {user.lastName}</p>
+          <img src={user.profileImageURL} />
        
       </div>
     );
