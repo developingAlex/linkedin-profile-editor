@@ -8,7 +8,9 @@ class App extends Component {
     user: {
       firstName: 'Alex',
       lastName: 'Jones',
-      profileImageURL: 'https://randomuser.me/api/portraits/lego/2.jpg'
+      profileImageURL: 'https://randomuser.me/api/portraits/lego/2.jpg',
+      profileImageURLField: 'https://randomuser.me/api/portraits/lego/2.jpg'
+      
     }
   }
   
@@ -29,14 +31,37 @@ class App extends Component {
       })
     }
 
-// ****** WHEN CLICKING THE 'UPDATE IMAGE' BUTTON
+// ****** WHEN CHANGING THE VALUE IN THE 'IMAGEURL' FIELD
     onChangeImageURL = (event) => {
-      const newUrl = this.profileImageUrlField.value
+      console.log(event.currentTarget)
+      console.log('event.currentTarget')
+
+      // console.log(this.profileImageUrlField)
+      const newUrl = event.target.value
       this.setState((prevState) => {
         const user = prevState.user
         const newUser = {
           ...user,
-          profileImageURL: newUrl
+          profileImageURLField: newUrl
+        }
+        return {
+          user: newUser
+        }
+      })
+    }
+
+// ****** WHEN CLICKING THE 'UPDATE IMAGE' BUTTON
+    onSubmitNewImage = (event) => {
+      event.preventDefault()
+      const form = event.target
+
+      console.log('form.elements.profileImageURL.value')
+      console.log(form.elements.profileImageURL.value)
+      this.setState((prevState) => {
+        const user = prevState.user
+        const newUser = {
+          ...user,
+          profileImageURL: user.profileImageURLField
         }
         return {
           user: newUser
@@ -94,22 +119,26 @@ class App extends Component {
           />
         </label>
         </p>
-        <p>
-        <label>
-          ImageURL:
-          { ' ' }
+        {user.profileImageURLField}
+        <form
+          onSubmit={this.onSubmitNewImage}>
           <input
-            ref={(input) => {this.profileImageUrlField = input; }}
-            defaultValue={user.profileImageURL}
+            name = 'profileImageURL'
+            type='text'
+            onChange={this.onChangeImageURL}
+            // ref={(input) => {this.profileImageUrlFieldElement = input; }}
+            value={user.profileImageURLField}
           />
-          <button text='yeah' onClick={
-            this.onChangeImageURL
-          } 
-          >
-          Update Image
-          </button>
-        </label>
-        </p>
+          <label>
+            ImageURL:
+            { ' ' }
+            <input 
+            type='submit'
+            value='Update Image'
+            />
+          </label>
+        </form>
+        
       </div>
     );
   }
