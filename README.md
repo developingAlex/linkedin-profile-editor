@@ -1,4 +1,5 @@
 20171129
+
 previous react class exercise: [emoji-dos2](https://github.com/developingAlex/emoji-dos2)
 ## Models
 
